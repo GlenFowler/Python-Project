@@ -8,7 +8,7 @@ Posibles cosas que hay que hacer:
 	Que Regex necesitamos
 	Guardar datos en SQL o txt
 	Exponer info
-	Hacer que vusque en el archivo password.txt las contraseñas
+	Hacer que busque en el archivo password.txt las contraseñas
 	Modificar Except paramiko para otros errores
 	Modificar Host Key
 	Docstrings
