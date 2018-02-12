@@ -1,33 +1,51 @@
 import paramiko
 import time
 import threading
+import socket
 
 from colorama import init, deinit, Fore, Style
 
 def connect_ssh(ip):
-    try :
-        #Define User
-        user_name = 'teopy' #should be 'admin'
+    #Connection Boolean
+    conn = False
     
-        #Define Password
-        password = 'python' #From 'password.txt'
-        
-        #passwords = open('password.txt', 'r')
-        #pass_list = passwords.readlines()
-        #passwords.close()
-        #print pass_list
+    #Define User
+    user_name = 'teopy' #should be 'admin'
     
+    #Define Password
+    passwords = open('password.txt', 'r')
+    password_list = passwords.readlines()
+    passwords.close()
+    #print password_list
+    #password = 'python' #From 'password.txt'
+          
+    #Start SSH connection
+    session = paramiko.SSHClient()
         
+    #For testing purposes, this allows auto-accepting unknown host keys
+    #Do not use in production! The default would be RejectPolicy
+    session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     
-        #Start SSH connection
-        session = paramiko.SSHClient()
+    #Connection to the devices each one with his own password
+    for password in password_list:
         
-        #For testing purposes, this allows auto-accepting unknown host keys
-        #Do not use in production! The default would be RejectPolicy
-        session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        #print password.rstrip('\n')
+        try:    
+            session.connect (ip, username = user_name, password = password.rstrip('\n'))
+            #print session
+            print Fore.GREEN + "Valid Password", password
+            print Style.RESET_ALL
+            conn = True
+            break
         
-        session.connect (ip, username = user_name, password = password)
+        except paramiko.AuthenticationException or socket.error:
+            print Fore.RED + "Invalid Password or Socket Error", password
+            print Style.RESET_ALL
+            continue
+          
+    #print conn
     
+    if conn == True:
         #Start Shell
         shell = session.invoke_shell()
     
@@ -41,10 +59,9 @@ def connect_ssh(ip):
         output = shell.recv(65535)
         #print output
         print ip
-    except paramiko.AuthenticationException:
-        print Fore.RED + "Invalid Password, check configuration file password.txt!"
+    else:
+        print Fore.RED + "Invalid Passwords, check configuration file password.txt!"
         print Style.RESET_ALL
-    
     
 def start_ssh(ip_list):
     
