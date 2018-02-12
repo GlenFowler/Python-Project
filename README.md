@@ -1,6 +1,9 @@
 # Python-Project
 
-Falta password.txt y range.txt para que funcione
+Add to the same directory password.txt and range.txt files, together with the other python files
+	password.txt ---> Different passwords use by the routers.
+	range.txt ----> IP address of each router.
+
 
 Posibles cosas que hay que hacer:
 
