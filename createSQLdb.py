@@ -1,10 +1,10 @@
 import pymysql  # import PyMySQL
 
 # MySQL server login credentials
-host = 'sql11.freemysqlhosting.net'
-username = 'sql11220934'
-password = 'BV1N5fe9MQ'
-database = 'sql11220934'
+host = ''
+username = ''
+password = ''
+database = ''
 
 sql_connection = pymysql.connect(host, username, password, database)  #sql_connection = PyMySQL.connect(host, username, password, database)
 # print(sql_connection)
