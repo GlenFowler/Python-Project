@@ -8,6 +8,7 @@ import queue  # import Queue
 
 from colorama import init, deinit, Fore, Style
 
+
 """
 Module for validation of the ip Addresses
 
@@ -60,23 +61,25 @@ def ip_valid():
     for pc in pc_list:
         if pc.rstrip('\n') in range_list:
             range_list.remove(pc.rstrip('\n'))
-    
+
     def threads():
         ip_list = []
         ip_queue = queue.Queue()
         threads = []
-        
+
         print(Fore.YELLOW + Style.BRIGHT + 'Start validation')
         print(Style.RESET_ALL)
-        
+
         for ip in range_list:
+
             th = threading.Thread(target=validformat, args=(ip, ip_queue))
             th.start()
+
             threads.append(th)
-            
+
         for th in threads:
             th.join()
-        
+
         # Waiting threads and queue
         time.sleep(3)
         

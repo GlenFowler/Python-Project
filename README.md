@@ -2,18 +2,12 @@
 
 Add to the same directory password.txt and range.txt files, together with the other python files
 	password.txt ---> Different passwords use by the routers.
-	range.txt ----> IP address of each router.
+	range.txt ----> IP address range for management.
+	*pcs.txt ---> If there is any pc in the same range you can add his IP here.
 
+Save all in the same directory and execute main.py
 
-Posibles cosas que hay que hacer:
-
-	Determinar que comandos necesitamos
-	Que Regex necesitamos
-	Guardar datos en SQL o txt												Almost Finished
-	Exponer info															Almost Finished
-	Hacer que busque en el archivo password.txt las contraseñas 			Finished
-	Modificar Except paramiko para otros errores							Finished
-	Modificar Host Key
-	Docstrings
+Example 
+	$ python main.py
 	
 
