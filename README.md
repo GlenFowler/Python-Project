@@ -5,6 +5,7 @@ Description
 You would to know about different information of your network devices, such IOS routers or Nexus
 devices.
 With this script you can collect data from your devices:
+	
 	You can know all available devices in the network. For each device, You can know:
 		hardware version,
 		OS version running on the device,
