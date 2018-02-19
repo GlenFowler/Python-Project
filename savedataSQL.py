@@ -49,7 +49,8 @@ def save(table, data):
     sql_connection = pymysql.connect(host, username, password, database)
     # print(sql_connection)
     shell = sql_connection.cursor()
-    shell.execute("use sql11222093")
+    query = "use " + database
+    shell.execute(query)
 
     try:
         keys_i = j.join(keys)

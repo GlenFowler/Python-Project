@@ -33,7 +33,8 @@ def extract(table):
     """
     sql_connection = pymysql.connect(host, username, password, database)
     shell = sql_connection.cursor()
-    shell.execute("use sql11222093")
+    query = "use " + database
+    shell.execute(query)
 
     query = "select * from " + table + " ORDER BY Hostname"
     # print(query)

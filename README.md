@@ -46,5 +46,9 @@ Help and fixes welcome!
 	- Javier Ortiz Bonilla
 	- Glen Fernandez Fowler
 
+Fixes
+-----------
+
+	Fix 1# --> DB selection: Fixed a problem when change DB hosting
 
 

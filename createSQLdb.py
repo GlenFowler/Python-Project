@@ -12,7 +12,8 @@ sql_connection = pymysql.connect(host, username, password, database)  #sql_conne
 # Creating DB
 try:
     shell = sql_connection.cursor()
-    shell.execute("use sql11222093")
+    query = "use " + database
+    shell.execute(query)
 
     shell.execute("create table Devices(Hostname VARCHAR(30), ManIPadd VARCHAR(15) PRIMARY KEY, HWVer VARCHAR(30),"
                   "OSVer VARCHAR(20),Password VARCHAR(30), Modules TEXT)")
