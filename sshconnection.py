@@ -21,7 +21,7 @@ The file **password.txt** has all the possible passwords to connect with all the
 
     Example:
 
-            $ python sshconnection.py 
+            $ python3 sshconnection.py 
 """
 
 init()

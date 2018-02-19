@@ -19,13 +19,13 @@ def device_info(hostname, password, IPmanagement, version_out, inventory_out):
     modules = show_inventory(inventory_out)
 
     device['Hostname'] = hostname
-    device['Password'] = password
+    device['Password'] = password.rstrip('\n')
     device['ManIPadd'] = IPmanagement
     device['HWVer'] = version['Hardware']
     device['OSVer'] = version['Type'] + ' ' + version['SoftwareVersion']
-    device['Modules'] = modules['Description']  # De momento solo guardo la descripcion del primero para probar.
+    device['Modules'] = modules  # De momento solo guardo la descripcion del primero para probar.
 
-    print(modules['Description'])
+    # print(device)
 
     savedataSQL.save('Devices', device)
     return device
@@ -77,7 +77,6 @@ def show_version(stdout):
             result['Hardware'] = NXOS_hardware
 
     # In case it is not an IOS device either a Nexus device, result will be empty
-    # savedataSQL.save('Devices', result)
     return result
 
 
@@ -86,30 +85,17 @@ def show_version(stdout):
 # The value of each module is another dictionary, with keys 'Name', 'Description', 'PID', 'VID', 'SN'
 
 def show_inventory(stdout):
-    module = r'(^NAME: "(?P<name>.*)", DESCR: "(?P<descr>.*)"\nPID: (?P<pid>.*), VID: (?P<vid>.*), SN: (?P<sn>.*))'
     # print(stdout)
-    found_modules = re.finditer(module, stdout, re.MULTILINE)
+    modules = []
+    data = re.findall(r'(NAME: "(?P<name>.*)", .*\n.* SN: (?P<sn>\w+))', stdout)  # r'(NAME: "(?P<name>.*)", )'
+    # print('x :', x)
 
-    modules = {'Name': '', 'Description': '', 'PID': '', 'VID': '', 'SN': ''}
+    for i in data:
+        s = 'Module: ' + i[1] + ' SN: ' + i[2]
+        # print(s)
+        modules.append(s)
 
-    i = 1
-    for m in found_modules:
-        module = {'Name': m.group('name'), 'Description': m.group('descr'), 'PID': m.group('pid'),
-                  'VID': m.group('vid'), 'SN': m.group('sn')}
-        modules[i] = module
-        i = i + 1
-    # print(modules)
+    modules = ', '.join(modules)
+    # print('return: ', modules)
+
     return modules
-
-
-if __name__ == '__main__':
-    hostname = 'ocsic'
-    password = '1234'
-    IPmanagement = '10.14.0.8'
-    version_out = b'show version\r\nCisco IOS Software, 2600 Software (C2691-ADVENTERPRISEK9-M), Version 12.4(25c), RELEASE SOFTWARE (fc2)\r\nTechnical Support: http://www.cisco.com/techsupport\r\nCopyright (c) 1986-2010 by Cisco Systems, Inc.\r\nCompiled Thu 11-Feb-10 23:23 by prod_rel_team\r\n\r\nROM: ROMMON Emulation Microcode\r\nROM: 2600 Software (C2691-ADVENTERPRISEK9-M), Version 12.4(25c), RELEASE SOFTWARE (fc2)\r\n\r\nR4 uptime is 9 hours, 19 minutes\r\nSystem returned to ROM by unknown reload cause - suspect boot_data[BOOT_COUNT] 0x0, BOOT_COUNT 0, BOOTDATA 19\r\nSystem image file is "tftp://255.255.255.255/unknown"\r\n\r\n\r\nThis product contains cryptographic features and is subject to United\r\nStates and local country laws governing import, export, transfer and\r\nuse. Delivery of Cisco cryptographic products does not imply\r\nthird-party authority to import, export, distribute or use encryption.\r\nImporters, exporters, distributors and users are responsible for\r\ncompliance with U.S. and local country laws. By using this product you\r\nagree to comply with applicable laws and regulations. If you are unable\r\nto comply with U.S. and local laws, return this product immediately.\r\n\r\nA summary of U.S. laws governing Cisco cryptographic products may be found at:\r\nhttp://www.cisco.com/wwl/export/crypto/tool/stqrg.html\r\n\r\nIf you require further assistance please contact us by sending email to\r\nexport@cisco.com.\r\n\r\nCisco 2691 (R7000) processor (revision 0.1) with 187392K/9216K bytes of memory.\r\nProcessor board ID XXXXXXXXXXX\r\nR7000 CPU at 160MHz, Implementation 39, Rev 2.1, 256KB L2, 512KB L3 Cache\r\n2 FastEthernet interfaces\r\nDRAM configuration is 64 bits wide with parity enabled.\r\n55K bytes of NVRAM.\r\n\r\nConfiguration register is 0x2102\r\n\r\n'
-    inventory_out = b'R4#show invent\r\nNAME: "2691 chassis", DESCR: "2691 chassis"\r\nPID:                   , VID: 0.1, SN: XXXXXXXXXXX\r\n\r\n\r\nR4#'
-    # Llamada a la funcion
-    device = device_info(hostname, password, IPmanagement, version_out.decode(), inventory_out.decode())
-    print(device)
-    print('Guardar en base de datos...')
-    savedataSQL.save('Devices', device)

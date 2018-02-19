@@ -7,14 +7,14 @@ This module connect to a database and extract data from devices stored in the da
 
     Example:
 
-            $ python takedataSQL.py
+            $ python3 takedataSQL.py
 """
 
 # MySQL server login credentials
-host = 
-username = 
-password = 
-database = 
+host = ''
+username = ''
+password = ''
+database = ''
 
 
 # sql_connection = pymysql.connect(host, username, password, database)
@@ -33,7 +33,7 @@ def extract(table):
     """
     sql_connection = pymysql.connect(host, username, password, database)
     shell = sql_connection.cursor()
-    shell.execute("use sql11220934")
+    shell.execute("use sql11222093")
 
     query = "select * from " + table + " ORDER BY Hostname"
     # print(query)
@@ -50,7 +50,7 @@ def extract(table):
 
         while output is not None:
             print('{:^15}'.format(output[0]), '{:^15}'.format(output[1]), '{:^15}'.format(output[2]),
-                  '{:^20}'.format(output[3]), '{:^15}'.format(output[4]), '{:^{}}'.format(output[5], x-80))
+                  '{:^20}'.format(output[3]), '{:^15}'.format(output[4]), '{:^{}}'.format(output[5], x-80), '\n')
             output = shell.fetchone()
 
     elif table == 'Topology':

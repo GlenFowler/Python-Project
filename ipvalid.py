@@ -19,7 +19,7 @@ correct format and if possible to ping that ip address. Pc Addresses are saved i
 
     Example:
     
-            $ python ipvalid.py 
+            $ python3 ipvalid.py 
 """
 
 

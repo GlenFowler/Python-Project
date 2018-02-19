@@ -10,14 +10,14 @@ This module connect to a database and save data from devices.
 
     Example:
 
-            $ python savedataSQL.py
+            $ python3 savedataSQL.py
 """
 
 # MySQL server login credentials
-host = 
-username = 
-password = 
-database = 
+host = ''
+username = ''
+password = ''
+database = ''
 
 init()
 
@@ -49,7 +49,7 @@ def save(table, data):
     sql_connection = pymysql.connect(host, username, password, database)
     # print(sql_connection)
     shell = sql_connection.cursor()
-    shell.execute("use sql11220934")
+    shell.execute("use sql11222093")
 
     try:
         keys_i = j.join(keys)

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 # import modules
-import time
+# import time
+
 # import my modules
 import ipvalid
 import sshconnection
