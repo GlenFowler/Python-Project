@@ -32,7 +32,9 @@ Example:
 	
 
 You need also to configure a SQL data base to save the data from devices. Change the values in
-savedataSQL.py and takedataSQL.py
+savedataSQL.py, takedataSQL.py and createSQLdb.py 
+
+you can create the DB table with the script createSQLdb.py.
 
 Development
 ===========
