@@ -26,7 +26,8 @@ Add to the same directory password.txt and range.txt files, together with the ot
 
 Save all in the same directory and execute main.py
 
-Example 
+Example:
+	
 	$ python3 main.py
 	
 
