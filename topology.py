@@ -1,6 +1,8 @@
 import re
 import savedataSQL
 
+# Function topology. This function insert into data base the name of the device and their subnettes directly connected
+# Receives the output of the commands 'show ip route' and the name of the device
 
 def topology(name="name", str_in="str"):
 
