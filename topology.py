@@ -26,10 +26,16 @@ def topology(name="name", str_in="str"):
 
 def query_topology():
     # MySQL server login credentials
-    host = 'sql11.freemysqlhosting.net'
-    username = 'sql11222093'
-    password = 'gcCS8F4Wku'
-    database = 'sql11222093'
+    database_info = open('database.txt', 'r')
+    database_info.seek(0)
+    login_credentials = ' '.join(database_info.readlines())
+    database_info.close
+    # print(login_credentials)
+    host = re.search(r"host = '(?P<host>.*)'", login_credentials).group('host')
+    username = re.search(r"username = '(?P<username>.*)'", login_credentials).group('username')
+    password = re.search(r"password = '(?P<password>.*)'", login_credentials).group('password')
+    database = re.search(r"database = '(?P<database>.*)'", login_credentials).group('database')
+    # print(host, ' ', username, ' ', password, ' ', database)
 
     sql_connection = pymysql.connect(host, username, password, database)
     shell = sql_connection.cursor()
@@ -68,15 +74,15 @@ def query_topology():
                     # print(x[0], 'is connected with ', i[0])
                     routers_edges.append((x[0], i[0]))
 
-    print(routers)
-    print(routers_conn)
-    print(routers_edges)
+    # print(routers)
+    # print(routers_conn)
+    # print(routers_edges)
 
     G = nx.Graph()
     G.add_nodes_from(routers)
     G.add_edges_from(routers_edges)
 
-    nx.draw(G, with_labels=True)
+    nx.draw(G, with_labels=True, pos=nx.spring_layout(G))
 
     plt.show()  # display
 

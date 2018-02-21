@@ -1,0 +1,6 @@
+# MySQL server login credentials
+
+host = 'sql11.freemysqlhosting.net'
+username = 'sql11222093'
+password = 'gcCS8F4Wku'
+database = 'sql11222093'

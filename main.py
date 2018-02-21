@@ -7,6 +7,7 @@
 import ipvalid
 import sshconnection
 import takedataSQL
+import topology
 
 # My variables
 # ip_list = []
@@ -28,6 +29,7 @@ if answer in yes:
     # Connect to devices
     sshconnection.start_ssh(ip_list)
     answer = ''
+
 answer = ''
 while answer not in no_yes:
     answer = input('Do you want to look data already in DB? (YES/NO):')
@@ -38,5 +40,13 @@ if answer in yes:
     print('{:_^500}'.format(''))
     takedataSQL.extract('Interfaces')
     print('{:_^500}'.format(''))
+    answer = ''
+
+answer = ''
+while answer not in no_yes:
+    answer = input('Do you want to draw the topology? (YES/NO):')
+if answer in yes:
+    topology.query_topology()
+
 
 print('\nGood bye!!')

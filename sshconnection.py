@@ -58,7 +58,7 @@ def connect_ssh(ip):
     # Connection to the devices each one with his own password
     for password in password_list:
 
-        # print password.rstrip('\n')
+        # print(password.rstrip('\n'))
         try:
             session.connect(ip, username=user_name, password=password.rstrip('\n'))
             # print session
@@ -68,11 +68,11 @@ def connect_ssh(ip):
             break
 
         except paramiko.AuthenticationException or paramiko.ssh_exception.NoValidConnectionsError:  # NoValidConnectionsError SSHException
-            # print(Fore.RED + "Invalid Password or Socket Error", password)
+            # print(Fore.RED + "Invalid Password ", password)
             # print(Style.RESET_ALL)
             continue
         except socket.error:
-            print('socket error')
+            # print('socket error ', password)
             continue
 
     # print conn
@@ -174,5 +174,5 @@ def start_ssh(ip_list):
 deinit()
 
 if __name__ == '__main__':
-    ip_list = ['192.168.15.23']  # '192.168.15.25', '192.168.15.31', '192.168.15.32', '192.168.15.33', '192.168.15.34']  # ['192.168.2.102', '192.168.2.103', '192.168.2.101', '192.168.2.105', '192.168.2.104']
+    ip_list = ['192.168.15.73']  # '192.168.15.25', '192.168.15.31', '192.168.15.32', '192.168.15.33', '192.168.15.34']  # ['192.168.2.102', '192.168.2.103', '192.168.2.101', '192.168.2.105', '192.168.2.104']
     start_ssh(ip_list)
