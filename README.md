@@ -33,6 +33,7 @@ Example:
 	
 
 Version 1.1: You only need to change the credentials in the file database.txt
+
 *No longer available, Version 1.0: You need also to configure a SQL data base to save the data from devices. Change the values in
 			 savedataSQL.py, takedataSQL.py and createSQLdb.py
 
