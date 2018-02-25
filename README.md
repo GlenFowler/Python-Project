@@ -44,6 +44,19 @@ Version 1.1: You only need to change the credentials in the file database.txt
 
 You can create the DB table with the script createSQLdb.py.
 
+Modules needed:
+
+	colorama
+	
+	paramiko
+	
+	pymysql
+	
+	networkx
+	
+	matplotlib
+
+
 Development
 ===========
 

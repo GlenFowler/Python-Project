@@ -22,12 +22,12 @@ try:
     shell = sql_connection.cursor()
     query = "use " + database
     shell.execute(query)
-    '''
+
     shell.execute("create table Devices(Hostname VARCHAR(30), ManIPadd VARCHAR(15) PRIMARY KEY, HWVer VARCHAR(30),"
                   "OSVer VARCHAR(20),Password VARCHAR(30), Modules TEXT)")
 
     shell.execute("create table Topology(Hostname VARCHAR(30) PRIMARY KEY, Connected TEXT)")
-    '''
+
     shell.execute("create table Interfaces(Hostname VARCHAR(30) , Inter VARCHAR(20), Description TEXT, "
                   "Status VARCHAR(5), Protocol VARCHAR(5), ipmask VARCHAR(20), MTU VARCHAR(5),"
                   " BW VARCHAR(15), PRIMARY KEY (Hostname, Inter))")
