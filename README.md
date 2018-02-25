@@ -57,6 +57,7 @@ Help and fixes welcome!
 Fixes
 -----------
 
-	Fix 1# --> DB selection: Fixed a problem when change DB hosting
+	Fix 1# --> DB selection: Fixed a problem when change DB hosting.
+	Fix 2# --> Added a solution if change the IP management range.
 
 

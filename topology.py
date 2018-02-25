@@ -37,6 +37,7 @@ def query_topology():
     database = re.search(r"database = '(?P<database>.*)'", login_credentials).group('database')
     # print(host, ' ', username, ' ', password, ' ', database)
 
+    # Connection to the DB
     sql_connection = pymysql.connect(host, username, password, database)
     shell = sql_connection.cursor()
     query = "use " + database
@@ -48,26 +49,35 @@ def query_topology():
     shell.execute(query)
     shell.close()
 
+    # Output of the DB
     output = shell.fetchall()
     # print(output)
 
+    # Regex for ip extraction
     regex = re.compile(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})')
 
+    # Variables for draw
     routers = []
     routers_edges = []
     routers_conn = []
 
-    # Preper data to process then the data
+    # Prepare data to process then the data
     for row in output:
         cad = regex.findall(row[1])
         routers_conn.append((row[0], cad))
         if row[0] not in routers:
             routers.append(row[0])
 
+    iprange = open('range.txt', 'r')
+    ip_manager = regex.search(iprange.readline()).group()
+    iprange.close()
+    # print(ip_manager)
+
+    # Determine the ip connections between routers
     for x in routers_conn:
         # print(x[1])
-        if '192.168.15.0' in x[1]:
-            x[1].remove('192.168.15.0')
+        if ip_manager in x[1]:
+            x[1].remove(ip_manager)
         for i in routers_conn:
             if x[1] != i[1]:
                 if set(x[1]).intersection(i[1]) != set():
@@ -78,6 +88,7 @@ def query_topology():
     # print(routers_conn)
     # print(routers_edges)
 
+    # Draw router topology
     G = nx.Graph()
     G.add_nodes_from(routers)
     G.add_edges_from(routers_edges)
